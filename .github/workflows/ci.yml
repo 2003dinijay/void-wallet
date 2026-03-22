@@ -1,0 +1,61 @@
+name: Void Wallet CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          pip install -r requirements.txt
+          pip install bcrypt
+
+      - name: Check backend starts
+        env:
+          MONGODB_URL: mongodb://localhost:27017
+          DB_NAME: voidwallet
+          JWT_SECRET: test-secret-key
+          JWT_ALGORITHM: HS256
+          JWT_EXPIRE_MINUTES: 1440
+        run: |
+          cd backend
+          python -c "import main; print('Backend OK')"
+
+  frontend:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm install
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build
