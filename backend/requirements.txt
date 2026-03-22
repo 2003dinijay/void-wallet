@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+eth-account
+mnemonic
+bip_utils
+pynacl
+base58
+python-dotenv
+pycryptodome
+motor
+python-jose[cryptography]
+python-multipart
+web3
