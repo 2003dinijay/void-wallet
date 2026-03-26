@@ -424,6 +424,39 @@ npm run dev  # runs on http://localhost:3000
 
 ---
 
+## DEFAULT CLI / TERMINAL TESTING GUIDE
+
+You can also test the endpoints directly from your terminal after starting the backend. 
+Useful for quick verification or testing after the local state/terminal is cleared.
+
+### 1. Generate Ethereum Wallet
+```bash
+# clear terminal first if needed
+clear 
+curl -X POST http://localhost:8000/api/ethereum/generate
+```
+
+### 2. Sign Ethereum Transaction
+```bash
+curl -X POST http://localhost:8000/api/ethereum/sign \
+  -H "Content-Type: application/json" \
+  -d '{"private_key": "YOUR_PRIVATE_KEY", "to": "0x123...", "value_eth": 0.01, "gas_limit": 21000, "gas_price_gwei": 20, "nonce": 0, "chain_id": 1}'
+```
+
+### 3. Generate Solana Wallet
+```bash
+curl -X POST http://localhost:8000/api/solana/generate
+```
+
+### 4. Sign Solana Transaction
+```bash
+curl -X POST http://localhost:8000/api/solana/sign \
+  -H "Content-Type: application/json" \
+  -d '{"private_key_hex": "YOUR_PRIVATE_KEY", "recipient": "7xKX...", "lamports": 1000000}'
+```
+
+---
+
 ## COURSEWORK NOTES (for report appendix)
 
 - The app deliberately exposes intermediate cryptographic values (entropy, seed, derivation path) 
