@@ -37,7 +37,7 @@ jobs:
           cd backend
           python -c "import main; print('Backend OK')"
 
-      # ✅ Step 4: IaC Validation (ADDED)
+      # ✅ Step 4: IaC Validation
       - name: Validate Infrastructure
         run: echo "Checking infrastructure configuration..."
 
